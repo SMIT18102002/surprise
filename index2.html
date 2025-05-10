@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>6 Months of Bestie Magic!</title>
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Open+Sans&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(135deg, #ffecd2, #fcb69f);
+      font-family: 'Open Sans', sans-serif;
+      color: #333;
+      text-align: center;
+      overflow-x: hidden;
+    }
+    .container {
+      padding: 2rem;
+    }
+    h1 {
+      font-family: 'Pacifico', cursive;
+      font-size: 3rem;
+      color: #ff4b2b;
+    }
+    .heart {
+      font-size: 2rem;
+      color: red;
+      animation: heartbeat 1s infinite;
+    }
+    @keyframes heartbeat {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.3); }
+    }
+    .message {
+      margin-top: 2rem;
+      font-size: 1.3rem;
+    }
+    .gallery {
+      margin-top: 3rem;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1rem;
+    }
+    .gallery img {
+      width: 100%;
+      border-radius: 15px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    }
+    .button {
+      margin-top: 2rem;
+      background: #ff4b2b;
+      color: white;
+      padding: 0.8rem 1.5rem;
+      border: none;
+      border-radius: 30px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    .button:hover {
+      background: #ff416c;
+    }
+    .surprise-card {
+      margin-top: 2rem;
+      padding: 2rem;
+      background: #fff8f0;
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+      animation: fadeIn 1s ease forwards;
+      position: relative;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .quote {
+      font-style: italic;
+      margin-top: 1rem;
+      color: #555;
+    }
+    .confetti {
+      position: fixed;
+      width: 100vw;
+      height: 100vh;
+      pointer-events: none;
+      z-index: 1000;
+    }
+    .celebration {
+      font-size: 2rem;
+      color: #ff4b2b;
+      margin-bottom: 1rem;
+      animation: pop 0.5s ease-in-out infinite alternate;
+    }
+    @keyframes pop {
+      0% { transform: scale(1); }
+      100% { transform: scale(1.1); }
+    }
+    .balloon {
+      position: absolute;
+      bottom: -100px;
+      animation: fly 5s linear infinite;
+    }
+    @keyframes fly {
+      0% { bottom: -100px; opacity: 0; }
+      20% { opacity: 1; }
+      100% { bottom: 110%; opacity: 0; }
+    }
+    .celebration-images {
+      margin-top: 1.5rem;
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+    }
+    .celebration-images img {
+      width: 30%;
+      border-radius: 15px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    }
+  </style>
+</head>
+<body>
+  <canvas class="confetti"></canvas>
+  <div class="container">
+    <h1>🎉 Happy 6 Months Bestie-versary, Ayu Ane! <span class="heart">❤</span></h1>
+    <div class="message">
+      <p>From random laughs to deep talks, we've shared so many beautiful moments in just 6 months!</p>
+      <p>You are truly the most amazing bestie anyone could ever ask for. 💖</p>
+      <p>Here's a little surprise to show you how much I appreciate our friendship. ✨</p>
+    </div>
+    <button class="button" onclick="showMoreLove()">Click for a Celebration 🎊</button>
+    <div id="surprise" style="display:none;"></div>
+    <!-- <div class="gallery">
+      <img src="https://source.unsplash.com/featured/?friends" alt="Bestie Moments">
+      <img src="https://source.unsplash.com/featured/?sunset,friendship" alt="Memories">
+      <img src="https://source.unsplash.com/featured/?fun,laugh" alt="Fun Times">
+    </div> -->
+  </div>
+  <script>
+    function showMoreLove() {
+      document.getElementById("surprise").style.display = "block";
+      document.getElementById("surprise").innerHTML = `
+        <div class="surprise-card">
+          <div class="celebration">🎈 Let's Celebrate! 🎉</div>
+          <h2>Dear Ayu,</h2>
+          <p>You light up every moment with your kindness and joy. Today, we celebrate YOU and our magical 6-month friendship journey! 🥳</p>
+          <p>Thank you for being the kind of bestie who turns every ordinary day into something extraordinary. 💫</p>
+          <p class="quote">"A true friend is the greatest of all blessings."</p>
+          <p>With all the love and laughter, your bestu OPPA 💕</p>
+          <div class="celebration-images" id="celebrationImages">
+            <img src="./1.jpg" alt="Celebration 1" />
+            <img src="./4.jpg" alt="Celebration 2" />
+            <img src="./2.jpg" alt="Celebration 3" />
+          </div>
+        </div>
+      `;
+      startConfetti();
+      launchBalloons();
+    }
+
+    function startConfetti() {
+      const canvas = document.querySelector('.confetti');
+      const ctx = canvas.getContext('2d');
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+
+      const confettiPieces = Array.from({ length: 150 }, () => ({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height - canvas.height,
+        r: Math.random() * 6 + 4,
+        d: Math.random() * 40 + 10,
+        color: `hsl(${Math.random() * 360}, 70%, 60%)`,
+        tilt: Math.random() * 10 - 10,
+        tiltAngleIncremental: Math.random() * 0.07 + 0.05,
+        tiltAngle: 0
+      }));
+
+      function draw() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        confettiPieces.forEach((p) => {
+          p.tiltAngle += p.tiltAngleIncremental;
+          p.y += (Math.cos(p.d) + 3 + p.r / 2) / 2;
+          p.x += Math.sin(p.tiltAngle) * 2;
+
+          ctx.beginPath();
+          ctx.lineWidth = p.r;
+          ctx.strokeStyle = p.color;
+          ctx.moveTo(p.x + p.tilt + p.r / 2, p.y);
+          ctx.lineTo(p.x + p.tilt, p.y + p.tilt + p.r / 2);
+          ctx.stroke();
+        });
+        requestAnimationFrame(draw);
+      }
+
+      draw();
+    }
+
+    function launchBalloons() {
+      const surpriseCard = document.querySelector('.surprise-card');
+      for (let i = 0; i < 20; i++) {
+        const balloon = document.createElement('img');
+        
+        balloon.style.left = Math.random() * 90 + '%';
+        balloon.style.width = '30px';
+        surpriseCard.appendChild(balloon);
+      }
+    }
+  </script>
+</body>
+</html>
